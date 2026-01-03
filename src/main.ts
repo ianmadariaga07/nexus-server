@@ -6,10 +6,10 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   //validacion global
-  app.setGlobalPrefix('api'); //esto hace que las rutas sean /api/users, pero es opcional
+  app.setGlobalPrefix('api'); //esto hace que las rutas sean /api/, pero es opcional
   app.useGlobalPipes(
     new ValidationPipe({
-      //elimina los datos extra que no estén en el DTO
+      //elimina los datos extra que no estén en los DTO
       whitelist: true,
       forbidNonWhitelisted: true,
     }),

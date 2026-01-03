@@ -4,7 +4,9 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from 'typeorm';
+import { Transaction } from 'src/transactions/entities/transaction.entity';
 
 @Entity('users')
 export class User {
@@ -23,12 +25,18 @@ export class User {
   //admin o usuario normal
   @Column('text', { array: true, default: ['user'] })
   roles: string[];
+
+  //Transaction
+  @Column('decimal', { precision: 10, scale: 2, default: 0 })
+  realBalance: number;
+  @Column('decimal', { precision: 10, scale: 2, default: 0 })
+  creditCardDebt: number;
+
   @CreateDateColumn()
   createdAt: Date;
   @UpdateDateColumn()
   updatedAt: Date;
 
-  //NOTA: agregar la relacion con Transactions
-  // @OneToMany(() => Transaction, (transaction) => transaction.user)
-  // transactions: Transaction[];
+  @OneToMany(() => Transaction, (transaction) => transaction.user)
+  transactions: Transaction[];
 }
